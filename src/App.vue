@@ -10,7 +10,7 @@
       <v-divider></v-divider>
 
       <v-list>
-        <v-list-item v-for="[icon, text] in links" :key="icon" link>
+        <v-list-item v-for="[icon, text,to] in links" :key="icon" link :to="to">
           <v-list-item-icon>
             <v-icon>{{ icon }}</v-icon>
           </v-list-item-icon>
@@ -24,7 +24,7 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>Vuetify App</v-toolbar-title>
     </v-app-bar>
     <v-main>
       <v-container class="py-8 px-6" fluid>
@@ -37,13 +37,10 @@
 <script>
 export default {
   data: () => ({
-    cards: ["Today", "Yesterday"],
     drawer: null,
     links: [
-      ["mdi-inbox-arrow-down", "Inbox"],
-      ["mdi-send", "Send"],
-      ["mdi-delete", "Trash"],
-      ["mdi-alert-octagon", "Spam"],
+      ["mdi-inbox-arrow-down","主页", "/"],
+      ["mdi-send", "关于","/about"],
     ],
   }),
 };
