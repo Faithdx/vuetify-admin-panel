@@ -3,8 +3,7 @@
     <v-navigation-drawer v-model="drawer" app>
       <v-sheet color="grey lighten-4" class="pa-4">
         <v-avatar class="mb-4" color="grey darken-1" size="64"></v-avatar>
-
-        <div>john@vuetifyjs.com</div>
+        <div>Dylan_小新</div>
       </v-sheet>
 
       <v-divider></v-divider>
@@ -14,7 +13,6 @@
           <v-list-item-icon>
             <v-icon>{{ icon }}</v-icon>
           </v-list-item-icon>
-
           <v-list-item-content>
             <v-list-item-title>{{ text }}</v-list-item-title>
           </v-list-item-content>
@@ -41,6 +39,8 @@ export default {
     links: [
       ["mdi-inbox-arrow-down","主页", "/"],
       ["mdi-send", "关于","/about"],
+      ["mdi-login", "登录","/login"],
+      ["mdi-account", "注册","/register"],
     ],
   }),
 };
