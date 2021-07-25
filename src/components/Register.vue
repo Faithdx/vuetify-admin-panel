@@ -36,19 +36,25 @@
             <v-row>
               <v-col class="pb-0">
                 <h5 class="mb-2 font-color">账户信息</h5>
+                <div class="d-flex">
+                  <v-text-field
+                    outlined
+                    dense
+                    v-model="form.username"
+                    :rules="rules.usernameRules"
+                    label="ID"
+                  ></v-text-field>
+                  <v-btn class="bg-btn ml-4 w-0" rounded> 중복확인</v-btn>
+                </div>
                 <v-text-field
                   outlined
                   dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
-                  label="ID"
-                ></v-text-field>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
+                  v-model="form.password"
+                  :rules="rules.passwordRules"
                   label="密码"
+                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show = !show"
+                  :type="show ? 'text' : 'password'"
                 ></v-text-field>
                 <v-text-field
                   outlined
@@ -69,20 +75,23 @@
                 <v-text-field
                   outlined
                   dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
+                  v-model="form.orderpsd"
+                  :rules="rules.orderpsdRules"
                   label="订单密码"
+                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show = !show"
+                  :type="show ? 'text' : 'password'"
                 ></v-text-field>
                 <v-text-field
                   class="mb-0"
                   outlined
                   dense
-                  v-model="form.passwordConfirm"
+                  v-model="form.orderpsdConfirm"
                   :rules="[
-                    rules.passwordConfirmRules.required,
-                    rules.passwordConfirmRules.equal(
-                      form.password,
-                      form.passwordConfirm
+                    rules.orderpsdConfirmRules.required,
+                    rules.orderpsdConfirmRules.equal(
+                      form.orderpsd,
+                      form.orderpsdConfirm
                     ),
                   ]"
                   label="确认订单密码"
@@ -105,8 +114,8 @@
                 <v-text-field
                   outlined
                   dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
+                  v-model="form.phoneNumber"
+                  :rules="rules.phoneNumberRules"
                   label="手机"
                 ></v-text-field>
                 <v-text-field
@@ -119,16 +128,16 @@
                 <v-text-field
                   outlined
                   dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
+                  v-model="form.email"
+                  :rules="rules.emailRules"
                   label="电子邮件"
                 ></v-text-field>
                 <v-text-field
                   class="mb-0"
                   outlined
                   dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
+                  v-model="form.address"
+                  :rules="rules.addressRules"
                   label="家庭地址"
                 ></v-text-field>
               </v-col>
@@ -137,8 +146,10 @@
               <v-col class="pb-0">
                 <h5 class="mb-2 font-color">银行账户信息</h5>
                 <v-select
-                  :items="items"
+                  v-model="form.bank"
+                  :items="banks"
                   label="银行名称"
+                  :rules="[(v) => !!v || 'Item is required']"
                   dense
                   outlined
                 ></v-select>
@@ -161,7 +172,7 @@
           </v-form>
         </v-card-text>
         <v-card-actions class="px-4 pb-8">
-          <v-btn :disabled="!valid" rounded class="bg-btn">Register</v-btn>
+          <v-btn :disabled="!valid" rounded class="btn-style">Register</v-btn>
         </v-card-actions>
       </v-card>
     </v-row>
@@ -172,7 +183,7 @@ export default {
   name: "Register",
   data: () => ({
     //下拉框数据
-    items: ["交通银行", "建设银行", "人民银行", "平安银行"],
+    banks: ["交通银行", "建设银行", "人民银行", "平安银行"],
     // 用于验证表单内容填写是否正确
     valid: true,
     // 用于控制密码是否以可见的形式显示
@@ -182,6 +193,15 @@ export default {
       username: "",
       password: "",
       passwordConfirm: "",
+      orderpsd: "",
+      // orderpsdConfirm: "",
+      address: "",
+      // addressRules: "",
+      email: "",
+      // emailRules: "",
+      phoneNumber: "",
+      // phoneNumberRules:"",
+      bank: "",
     },
     //验证规则
     rules: {
@@ -191,13 +211,40 @@ export default {
           ((v || "").length >= 1 && (v || "").length <= 20) ||
           "用户名必须在1-20个字符以内",
       ],
+      addressRules: [
+        (v) => (v || "").length <= 25 || "地址必须在1-25个字符以内",
+      ],
+      emailRules: [
+        (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "Invalid e-mail.";
+        },
+      ],
+      phoneNumberRules: [
+        (value) => {
+          const regex = /^1[34578]\d{9}$/;
+          return regex.test(value) || "Invalid number.";
+        },
+      ],
       passwordRules: [
         (v) => !!v || "密码不能为空",
         (v) =>
           ((v || "").length >= 6 && (v || "").length <= 30) ||
           "密码必须在6-30个字符以内",
       ],
+      orderpsdRules: [
+        (v) => !!v || "密码不能为空",
+        (v) =>
+          ((v || "").length >= 6 && (v || "").length <= 30) ||
+          "密码必须在6-30个字符以内",
+      ],
       passwordConfirmRules: {
+        required: (v) => !!v || "请输入确认密码",
+        equal: (password, passwordConfirm) =>
+          password === passwordConfirm || "两次密码不一致",
+      },
+      orderpsdConfirmRules: {
         required: (v) => !!v || "请输入确认密码",
         equal: (password, passwordConfirm) =>
           password === passwordConfirm || "两次密码不一致",
@@ -217,9 +264,13 @@ export default {
 .font-color {
   color: #cb0682;
 }
-.bg-btn{
+.btn-style {
   background-color: #cb0682 !important;
   color: #ffffff;
   width: 100%;
+}
+.bg-btn{
+  background-color: #cb0682 !important;
+  color: #ffffff;
 }
 </style>
