@@ -9,7 +9,7 @@
         >
           <v-app-bar flat color="rgba(0, 0, 0, 0)">
             <v-app-bar-nav-icon color="white">
-              <v-icon>mdi-reply</v-icon>
+              <v-icon @click="backHistory">mdi-reply</v-icon>
             </v-app-bar-nav-icon>
             <v-spacer></v-spacer>
             <v-btn color="white" icon>
@@ -52,9 +52,9 @@
                   v-model="form.password"
                   :rules="rules.passwordRules"
                   label="密码"
-                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="show = !show"
-                  :type="show ? 'text' : 'password'"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show1 = !show1"
+                  :type="show1 ? 'text' : 'password'"
                 ></v-text-field>
                 <v-text-field
                   outlined
@@ -68,9 +68,9 @@
                     ),
                   ]"
                   label="确认密码"
-                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="show = !show"
-                  :type="show ? 'text' : 'password'"
+                  :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show2 = !show2"
+                  :type="show2 ? 'text' : 'password'"
                 ></v-text-field>
                 <v-text-field
                   outlined
@@ -78,9 +78,9 @@
                   v-model="form.orderpsd"
                   :rules="rules.orderpsdRules"
                   label="订单密码"
-                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="show = !show"
-                  :type="show ? 'text' : 'password'"
+                  :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show3 = !show3"
+                  :type="show3 ? 'text' : 'password'"
                 ></v-text-field>
                 <v-text-field
                   class="mb-0"
@@ -95,9 +95,9 @@
                     ),
                   ]"
                   label="确认订单密码"
-                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="show = !show"
-                  :type="show ? 'text' : 'password'"
+                  :append-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show4 = !show4"
+                  :type="show4 ? 'text' : 'password'"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -187,7 +187,10 @@ export default {
     // 用于验证表单内容填写是否正确
     valid: true,
     // 用于控制密码是否以可见的形式显示
-    show: false,
+    show1: false,
+    show2: false,
+    show3: false,
+    show4: false,
     // 表单填写的内容
     form: {
       username: "",
@@ -251,6 +254,11 @@ export default {
       },
     },
   }),
+  methods: {
+    backHistory() {
+      this.$router.go(-1); //返回路由的上一层
+    },
+  },
 };
 </script>
 <style scoped>
@@ -269,7 +277,7 @@ export default {
   color: #ffffff;
   width: 100%;
 }
-.bg-btn{
+.bg-btn {
   background-color: #cb0682 !important;
   color: #ffffff;
 }
