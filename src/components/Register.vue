@@ -114,17 +114,43 @@
                 <v-text-field
                   outlined
                   dense
-                  v-model="form.phoneNumber"
-                  :rules="rules.phoneNumberRules"
+                  v-model="form.phoneNum"
+                  :rules="rules.phoneNumRules"
                   label="手机"
                 ></v-text-field>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
-                  label="出生日期"
-                ></v-text-field>
+                <v-dialog
+                  ref="dialog"
+                  v-model="modal"
+                  :return-value.sync="form.birthday"
+                  persistent
+                  width="290px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      outlined
+                      dense
+                      v-model="form.birthday"
+                      :rules="rules.birthdayRules"
+                      label="出生日期"                     
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date" scrollable color="#cb0682" >
+                    <v-spacer></v-spacer>
+                    <v-btn text color="#cb0682" @click="modal = false">
+                      Cancel
+                    </v-btn>
+                    <v-btn
+                      text
+                      color="#cb0682"
+                      @click="$refs.dialog.save(date)"
+                    >
+                      OK
+                    </v-btn>
+                  </v-date-picker>
+                </v-dialog>               
                 <v-text-field
                   outlined
                   dense
@@ -146,7 +172,7 @@
               <v-col class="pb-0">
                 <h5 class="mb-2 font-color">银行账户信息</h5>
                 <v-select
-                  v-model="form.bank"
+                  v-model="form.bankName"
                   :items="banks"
                   label="银行名称"
                   :rules="[(v) => !!v || 'Item is required']"
@@ -156,15 +182,15 @@
                 <v-text-field
                   outlined
                   dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
+                  v-model="form.bankOwner"
+                  :rules="rules.bankOwnerRules"
                   label="账户持有人"
                 ></v-text-field>
                 <v-text-field
                   outlined
                   dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
+                  v-model="form.account"
+                  :rules="rules.accountRules"
                   label="账号"
                 ></v-text-field>
               </v-col>
@@ -182,6 +208,11 @@
 export default {
   name: "Register",
   data: () => ({
+    //日期弹窗
+    modal: false,
+    date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
     //下拉框数据
     banks: ["交通银行", "建设银行", "人民银行", "平安银行"],
     // 用于验证表单内容填写是否正确
@@ -196,15 +227,16 @@ export default {
       username: "",
       password: "",
       passwordConfirm: "",
-      orderpsd: "",
-      // orderpsdConfirm: "",
-      address: "",
-      // addressRules: "",
+      ordersd: "",
+      orderpsdConfirm: "",
+      ownerName: "",
+      phoneNum: "",
+      birthday: "",
       email: "",
-      // emailRules: "",
-      phoneNumber: "",
-      // phoneNumberRules:"",
-      bank: "",
+      address: "",
+      bankName: "",
+      bankOwner: "",
+      account: "",      
     },
     //验证规则
     rules: {
@@ -224,7 +256,7 @@ export default {
           return pattern.test(value) || "Invalid e-mail.";
         },
       ],
-      phoneNumberRules: [
+      phoneNumRules: [
         (value) => {
           const regex = /^1[34578]\d{9}$/;
           return regex.test(value) || "Invalid number.";
