@@ -5,22 +5,22 @@
         <v-img
           class="white--text align-end"
           height="200px"
-          src="../assets/images/register/bg_reg-1@3x.png"
+          src="../../assets/images/register/bg_reg-1@3x.png"
         >
           <v-app-bar flat color="rgba(0, 0, 0, 0)">
             <v-app-bar-nav-icon color="white">
               <v-icon @click="backHistory">mdi-reply</v-icon>
             </v-app-bar-nav-icon>
             <v-spacer></v-spacer>
-            <v-btn color="white" icon>
-              <span>로그인</span>
+            <v-btn color="white" icon >
+              <span class="mr-6">로그인</span>
             </v-btn>
           </v-app-bar>
           <v-card-title class="flex-column align-center white--text mt-2">
             <v-avatar size="56">
               <img
                 alt="title"
-                src="../assets/images/register/icon_title@3x.png"
+                src="../../assets/images/register/icon_title@3x.png"
               />
             </v-avatar>
             <span>회원가입</span>
@@ -46,6 +46,20 @@
                   ></v-text-field>
                   <v-btn class="bg-btn ml-4 w-0" rounded> 중복확인</v-btn>
                 </div>
+                 <v-text-field
+                  outlined
+                  dense
+                  v-model="form.phoneNum"
+                  :rules="rules.phoneNumRules"
+                  label="手机"
+                ></v-text-field>
+                <v-text-field
+                  outlined
+                  dense
+                  v-model="form.email"
+                  :rules="rules.emailRules"
+                  label="电子邮件"
+                ></v-text-field>
                 <v-text-field
                   outlined
                   dense
@@ -71,127 +85,6 @@
                   :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                   @click:append="show2 = !show2"
                   :type="show2 ? 'text' : 'password'"
-                ></v-text-field>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.orderpsd"
-                  :rules="rules.orderpsdRules"
-                  label="订单密码"
-                  :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="show3 = !show3"
-                  :type="show3 ? 'text' : 'password'"
-                ></v-text-field>
-                <v-text-field
-                  class="mb-0"
-                  outlined
-                  dense
-                  v-model="form.orderpsdConfirm"
-                  :rules="[
-                    rules.orderpsdConfirmRules.required,
-                    rules.orderpsdConfirmRules.equal(
-                      form.orderpsd,
-                      form.orderpsdConfirm
-                    ),
-                  ]"
-                  label="确认订单密码"
-                  :append-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="show4 = !show4"
-                  :type="show4 ? 'text' : 'password'"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row class="mt-0">
-              <v-col class="pb-0">
-                <h5 class="mb-2 font-color">隐私</h5>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.username"
-                  :rules="rules.usernameRules"
-                  label="名称"
-                ></v-text-field>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.phoneNum"
-                  :rules="rules.phoneNumRules"
-                  label="手机"
-                ></v-text-field>
-                <v-dialog
-                  ref="dialog"
-                  v-model="modal"
-                  :return-value.sync="form.birthday"
-                  persistent
-                  width="290px"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      outlined
-                      dense
-                      v-model="form.birthday"
-                      :rules="rules.birthdayRules"
-                      label="出生日期"                     
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker v-model="date" scrollable color="#cb0682" >
-                    <v-spacer></v-spacer>
-                    <v-btn text color="#cb0682" @click="modal = false">
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      text
-                      color="#cb0682"
-                      @click="$refs.dialog.save(date)"
-                    >
-                      OK
-                    </v-btn>
-                  </v-date-picker>
-                </v-dialog>               
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.email"
-                  :rules="rules.emailRules"
-                  label="电子邮件"
-                ></v-text-field>
-                <v-text-field
-                  class="mb-0"
-                  outlined
-                  dense
-                  v-model="form.address"
-                  :rules="rules.addressRules"
-                  label="家庭地址"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row class="mt-0">
-              <v-col class="pb-0">
-                <h5 class="mb-2 font-color">银行账户信息</h5>
-                <v-select
-                  v-model="form.bankName"
-                  :items="banks"
-                  label="银行名称"
-                  :rules="[(v) => !!v || 'Item is required']"
-                  dense
-                  outlined
-                ></v-select>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.bankOwner"
-                  :rules="rules.bankOwnerRules"
-                  label="账户持有人"
-                ></v-text-field>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.account"
-                  :rules="rules.accountRules"
-                  label="账号"
                 ></v-text-field>
               </v-col>
             </v-row>
