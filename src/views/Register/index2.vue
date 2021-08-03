@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row justify="center" class="m-style">
       <v-img
-        class="white--text"        
+        class="white--text"
         src="../../assets/images/register/bg_reg_2@3x.png"
       >
         <v-app-bar flat color="rgba(0, 0, 0, 0)">
@@ -11,7 +11,7 @@
           </v-app-bar-nav-icon>
           <v-spacer></v-spacer>
           <v-btn color="white" icon>
-            <span class="mr-6">로그인</span>
+            <span class="mr-6" @click="backHistory">로그인</span>
           </v-btn>
         </v-app-bar>
         <v-card-title class="flex-column align-center white--text mt-2">
@@ -23,77 +23,77 @@
           </v-avatar>
           <span>회원가입</span>
         </v-card-title>
-      </v-img>    
+      </v-img>
     </v-row>
-     <v-card class="card-box">
-        <v-card-text class="pb-2">
-          <v-form
-            ref="registerForm"
-            v-model="valid"
-            lazy-validation
-            autocomplete="off"
-          >
-            <v-row>
-              <v-col class="pb-0">
-                <h5 class="mb-2 font-color">账户信息</h5>
-                <div class="d-flex">
-                  <v-text-field
-                    outlined
-                    dense
-                    v-model="form.username"
-                    :rules="rules.usernameRules"
-                    label="ID"
-                  ></v-text-field>
-                  <v-btn class="bg-btn ml-4 w-0" rounded> 중복확인</v-btn>
-                </div>
+    <v-card class="card-box">
+      <v-card-text class="pb-2">
+        <v-form
+          ref="registerForm"
+          v-model="valid"
+          lazy-validation
+          autocomplete="off"
+        >
+          <v-row>
+            <v-col class="pb-0">
+              <h5 class="mb-2 font-color">账户信息</h5>
+              <div class="d-flex">
                 <v-text-field
                   outlined
                   dense
-                  v-model="form.phoneNum"
-                  :rules="rules.phoneNumRules"
-                  label="手机"
+                  v-model="form.username"
+                  :rules="rules.usernameRules"
+                  label="ID"
                 ></v-text-field>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.email"
-                  :rules="rules.emailRules"
-                  label="电子邮件"
-                ></v-text-field>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.password"
-                  :rules="rules.passwordRules"
-                  label="密码"
-                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="show1 = !show1"
-                  :type="show1 ? 'text' : 'password'"
-                ></v-text-field>
-                <v-text-field
-                  outlined
-                  dense
-                  v-model="form.passwordConfirm"
-                  :rules="[
-                    rules.passwordConfirmRules.required,
-                    rules.passwordConfirmRules.equal(
-                      form.password,
-                      form.passwordConfirm
-                    ),
-                  ]"
-                  label="确认密码"
-                  :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="show2 = !show2"
-                  :type="show2 ? 'text' : 'password'"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-form>
-        </v-card-text>
-        <v-card-actions class="px-4 pb-8">
-          <v-btn :disabled="!valid" rounded class="btn-style">Register</v-btn>
-        </v-card-actions>
-      </v-card>
+                <v-btn class="bg-btn ml-4 w-0" rounded> 중복확인</v-btn>
+              </div>
+              <v-text-field
+                outlined
+                dense
+                v-model="form.phoneNum"
+                :rules="rules.phoneNumRules"
+                label="手机"
+              ></v-text-field>
+              <v-text-field
+                outlined
+                dense
+                v-model="form.email"
+                :rules="rules.emailRules"
+                label="电子邮件"
+              ></v-text-field>
+              <v-text-field
+                outlined
+                dense
+                v-model="form.password"
+                :rules="rules.passwordRules"
+                label="密码"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show1 = !show1"
+                :type="show1 ? 'text' : 'password'"
+              ></v-text-field>
+              <v-text-field
+                outlined
+                dense
+                v-model="form.passwordConfirm"
+                :rules="[
+                  rules.passwordConfirmRules.required,
+                  rules.passwordConfirmRules.equal(
+                    form.password,
+                    form.passwordConfirm
+                  ),
+                ]"
+                label="确认密码"
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show2 = !show2"
+                :type="show2 ? 'text' : 'password'"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+      <v-card-actions class="px-4 pb-4">
+        <v-btn :disabled="!valid" rounded class="btn-style">Register</v-btn>
+      </v-card-actions>
+    </v-card>
   </v-container>
 </template>
 <script>
@@ -185,14 +185,17 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 .m-style {
-  margin: -44px -36px;
+  margin: -44px -36px;  
 }
-/* .card-box {
-  box-shadow: none !important;
-  border-radius: 0 !important;
-} */
+.card-box {
+  position: absolute;
+  top: 185px;
+  left: 24px;
+  right: 24px;
+  padding-bottom: 10px;
+}
 .card-box {
   border-radius: 10px !important;
 }

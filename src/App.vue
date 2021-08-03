@@ -95,7 +95,7 @@ export default {
   data: () => ({
     drawer: null,
     links: [
-      ["mdi-inbox-arrow-down", "主页", "/"],
+      ["mdi-inbox-arrow-down", "主页", "/home"],
       ["mdi-send", "关于", "/about"],
       ["mdi-login", "登录", "/login"],
       ["mdi-account", "注册", "/register"],

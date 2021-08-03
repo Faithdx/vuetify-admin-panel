@@ -13,7 +13,7 @@
             </v-app-bar-nav-icon>
             <v-spacer></v-spacer>
             <v-btn color="white" icon >
-              <span class="mr-6">로그인</span>
+              <span class="mr-6" @click="backHistory">로그인</span>
             </v-btn>
           </v-app-bar>
           <v-card-title class="flex-column align-center white--text mt-2">
