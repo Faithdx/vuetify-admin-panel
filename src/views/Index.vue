@@ -1,10 +1,11 @@
 <template>
   <div class="index">
-    <h1>{{ message }}</h1>
-    <img v-bind:src="imgURL" alt="" />
+    <!-- <h1 :style="{ fontSize: '50px', color: 'red' }">{{ message }}</h1> -->
     <ul>
-      <li v-for="(item, index) in movies" :key="index" >{{item}}</li>
+      <li v-for="(item, index) in movies" :key="index">{{ item }}</li>
     </ul>
+    <h2>{{ fullName }}</h2>
+    <h2>总价格: {{totalPrice}}</h2>
   </div>
 </template>
 
@@ -12,19 +13,35 @@
 export default {
   name: "Index",
   data: () => ({
-    message: 'what are you doing?',
-    imgURL: 'https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4769961793e644ab8c12e993948fdee1~tplv-k3u1fbpfcp-watermark.image',
-    movies: ['秦时明月','天行九歌','玲珑','少年歌行'],
-    counter: 0,
+    message: "what are you doing?",
+    books: [
+      { id: 110, name: "Unix编程艺术", price: 119 },
+      { id: 111, name: "代码大全", price: 109 },
+      { id: 112, name: "深入理解计算机原理", price: 99 },
+      { id: 113, name: "现代操作系统", price: 89 },
+    ],
+    movies: ["秦时明月", "天行九歌", "玲珑", "少年歌行"],
+    firstName: "Lebron",
+    lastName: "James",
   }),
-  methods: {
-    add: function () {
-      this.counter++;
+  computed: {
+    // fullName: function () {
+    //   return this.firstName + " " + this.lastName;
+    // },
+    fullName:{
+      get:function (){
+        return this.firstName + ' ' + this.lastName
+      }
     },
-    sub: function () {
-      this.counter--;
+    totalPrice: function () {
+      let result = 0;
+      for (let i = 0; i < this.books.length; i++) {
+        result += this.books[i].price;
+      }
+      return result;
     },
   },
+  methods: {},
 };
 </script>
 
