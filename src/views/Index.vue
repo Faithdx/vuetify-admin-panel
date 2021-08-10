@@ -4,8 +4,30 @@
     <ul>
       <li v-for="(item, index) in movies" :key="index">{{ item }}</li>
     </ul>
-    <h2>{{ fullName }}</h2>
-    <h2>总价格: {{totalPrice}}</h2>
+
+    <h2>{{ counter }}</h2>
+    <v-btn @click="increment">+</v-btn>
+    <v-btn @click="decrement">-</v-btn>
+
+    <div>
+      <v-text-field
+        v-if="isUser"
+        ref="username"
+        v-model="userName"
+        label="UserName"
+        placeholder="enter username"
+      >
+      </v-text-field>
+      <v-text-field
+        v-else
+        ref="email"
+        v-model="userEmail"
+        label="Email"
+        placeholder="enter email"
+        required
+      ></v-text-field>
+      <v-btn @click="isUser = !isUser">切换类型</v-btn>
+    </div>
   </div>
 </template>
 
@@ -14,24 +36,21 @@ export default {
   name: "Index",
   data: () => ({
     message: "what are you doing?",
-    books: [
-      { id: 110, name: "Unix编程艺术", price: 119 },
-      { id: 111, name: "代码大全", price: 109 },
-      { id: 112, name: "深入理解计算机原理", price: 99 },
-      { id: 113, name: "现代操作系统", price: 89 },
-    ],
+    isUser: true,
+    userName: "",
+    userEmail: "",
     movies: ["秦时明月", "天行九歌", "玲珑", "少年歌行"],
-    firstName: "Lebron",
-    lastName: "James",
+
+    counter: 0,
   }),
   computed: {
     // fullName: function () {
     //   return this.firstName + " " + this.lastName;
     // },
-    fullName:{
-      get:function (){
-        return this.firstName + ' ' + this.lastName
-      }
+    fullName: {
+      get: function () {
+        return this.firstName + " " + this.lastName;
+      },
     },
     totalPrice: function () {
       let result = 0;
@@ -41,7 +60,14 @@ export default {
       return result;
     },
   },
-  methods: {},
+  methods: {
+    increment() {
+      this.counter++;
+    },
+    decrement() {
+      this.counter--;
+    },
+  },
 };
 </script>
 
