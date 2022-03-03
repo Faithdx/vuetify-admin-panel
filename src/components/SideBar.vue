@@ -1,13 +1,26 @@
 <template>
-  <v-navigation-drawer v-model="$store.state.drawer" temporary color="#F4F5F9" app>
-    <v-list-item class="px-2 py-5">
-      <v-list-item-title class="text-capitalize" align="center">
-        <v-icon x-large>fab fa-bitcoin</v-icon> Coinbets
-      </v-list-item-title>
-    </v-list-item>
+  <v-navigation-drawer
+    v-model="newdrawer"
+    @click="drawerToggle"
+    color="#F4F5F9"
+    app
+  >
+    <v-img
+      height="140"
+      class="pa-4"
+      src="https://preview.pixlr.com/images/800wm/1439/2/1439104804.jpg"
+    >
+      <div class="text-center">
+        <v-avatar class="mb-4" color="grey darken-1" size="64">
+          <v-img aspect-ratio="30" src="../assets/images/avatars/girl.png" />
+        </v-avatar>
+        <h2 class="white--text">Web Dylan</h2>
+      </div>
+    </v-img>
+    <v-divider></v-divider>
     <v-list nav dense>
       <v-list-item-group v-model="selectedItem" color="deep-purple">
-        <v-list-item v-for="(item, i) in items" :key="i" link :to="item.route">
+        <v-list-item v-for="(item, i) in links" :key="i" link :to="item.route">
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>
           </v-list-item-icon>
@@ -17,58 +30,46 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-    <template v-slot:append>
-      <div class="pa-2">
-        <v-card align="center" class="pa-3">
-          <v-badge
-            bordered
-            bottom
-            color="green"
-            dot
-            offset-x="10"
-            offset-y="10"
-            class="mb-8"
-          >
-            <v-avatar size="40">
-              <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
-            </v-avatar>
-          </v-badge>
-          <h4 class="grey--text">Total Balance</h4>
-          <h2>$852.50</h2>
-          <h5 class="green--text">+$584.50 today</h5>
-          <v-card color="deep-purple" dark class="mt-5">
-            <v-list-item two-line>
-              <v-list-item-content>
-                <v-list-item-title> Your Wallet Address </v-list-item-title>
-                <v-list-item-subtitle>
-                  3QjwF2YkhdygZ47Akjh
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-card>
-        </v-card>
-      </div>
-    </template>
   </v-navigation-drawer>
 </template>
 <script>
 export default {
+  props: ["drawer"],
   data: () => ({
     selectedItem: 0,
-    items: [
-      { icon: "fas fa-home", text: "Dashboard", route: "/home" },
+    links: [
+      { icon: "mdi-microsoft-windows", text: "Dashboard", route: "/home" },
+      { icon: "mdi-account", text: "Profile", route: "/profile" },
       {
-        icon: "fas fa-money-check-alt",
-        text: "Buy / Sell",
-        route: "/hobuysme",
+        icon: "mdi-clipboard-list-outline",
+        text: "Products",
+        route: "/products",
       },
-      { icon: "fas fa-dolly", text: "Transactions", route: "/transactions" },
-      { icon: "fas fa-exchange-alt", text: "Exchange", route: "/exchanges" },
-      { icon: "fas fa-cog", text: "Tools", route: "/tools" },
+      {
+        icon: "mdi-card-account-details-outline",
+        text: "Orders",
+        route: "/orders",
+      },
+      { icon: "mdi-cog", text: "System Setting", route: "/setting" },
       { icon: "mdi-login", text: "登录", route: "/login" },
       { icon: "mdi-account", text: "注册", route: "/register" },
     ],
-  }),  
+  }),
+  computed: {
+    newdrawer: {
+      get() {
+        return this.drawer;
+      },
+      set(s) {
+        this.$emit("update", s);
+      },
+    },
+  },
+  methods:{
+    drawerToggle(){
+      this.newdrawer = !this.newdrawer
+    }
+  }
 };
 </script>
 

@@ -28,15 +28,7 @@
           </v-tab>
         </v-tabs>
       </v-app-bar>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>far fa-bell</v-icon>
-      </v-btn>
-      <v-badge bordered bottom color="green" dot offset-x="10" offset-y="10">
-        <v-avatar size="40">
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
-        </v-avatar>
-      </v-badge>
+      <v-spacer></v-spacer> 
     </v-toolbar>
     <v-divider></v-divider>
     <v-container class="mt-5">
