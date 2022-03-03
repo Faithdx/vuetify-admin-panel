@@ -4,9 +4,8 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home'
 import About from '@/views/About'
 import Index from '@/views/Index'
-
 import Login from '@/views/Login'
-import Register from '@/views/Register/index2'
+import Register from '@/views/Register/index'
 
 Vue.use(VueRouter)
 
